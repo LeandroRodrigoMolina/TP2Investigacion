@@ -1,0 +1,86 @@
+\documentclass[a4paper,10pt]{article}
+
+% Paquetes requeridos
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{csquotes}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{graphicx}
+\usepackage[style=apa, backend=biber, natbib=true, language=spanish, url=true]{biblatex}
+\usepackage{tocloft} % Para personalizar el índice
+\usepackage[left=3.5cm,right=2.5cm,top=3.5cm,bottom=3.8cm]{geometry}
+\usepackage{setspace} % Espaciado
+\usepackage{titlesec} % Para personalizar los títulos
+\usepackage{fancyhdr} % Para personalizar encabezados y pies de página
+\usepackage{newtxtext}
+\usepackage{ragged2e}
+
+\pagestyle{fancy}
+\fancyhf{} % Limpia encabezados y pies de página
+\renewcommand{\headrulewidth}{0pt} % Elimina la línea del encabezado
+
+\addbibresource{referencias.bib}
+\DeclareLanguageMapping{spanish}{spanish-apa}
+% Configuraciones
+\setlength{\parskip}{6pt} % Espacio entre párrafos
+\setstretch{1.15} % Espacio entre líneas
+
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % Para puntos en el índice
+
+% Estilos para títulos y subtítulos
+\titleformat{\section}
+{\normalfont\fontsize{12}{15}\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+{\normalfont\fontsize{10}{13}\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+{\normalfont\fontsize{10.5}{13}\bfseries}{\thesubsubsection}{1em}{}
+
+\usepackage[hypertexnames=false, colorlinks=true, 
+linkcolor=blue, 
+citecolor=blue, 
+urlcolor=blue, 
+linkbordercolor={1 1 0}, 
+citebordercolor={1 1 0}, 
+urlbordercolor={1 1 0}, 
+filecolor=blue, 
+pdfborderstyle={/S/U/W 1}]{hyperref}
+
+% Inicio del documento
+\begin{document}
+	\pagestyle{empty}
+	% Carátula
+	\begin{titlepage}
+		\centering
+		\vspace*{1.5cm}
+		{\fontsize{14}{17}\bfseries Criptografía ligera\par}
+		{\small Martin Borgo, Isaías Reniero, Leandro Molina\par}
+		{\normalsize Universidad Nacional de Entre Ríos\par}
+		{\normalsize Facultad de Ciencias de la Administración\par}
+		{\normalsize Licenciatura en Sistemas\par}
+		{\small \href{mailto:martinborgo8@gmail.com}{martinborgo8@gmail.com}, \href{mailto:isa.reniero001@hotmail.com}{isa.reniero001@hotmail.com}, \href{mailto:LeandroRodrigoMolina@gmail.com}{LeandroRodrigoMolina@gmail.com}\par}
+		{\small \justify\textbf{Abstract.} La criptografía ligera (Lightweight Cryptography), es una rama de la criptografía que se enfoca en desarrollar algoritmos eficientes y de bajo consumo para su implementación en sistemas con recursos limitados, como sistemas embebidos, dispositivos IoT (Internet de las cosas) y microcontroladores. La ausencia de medidas de seguridad adecuadas en tales sistemas generan preocupaciones, especialmente cuando se trata de gestionar información sensible, en este contexto la criptografía ligera ofrece soluciones que permiten proteger eficazmente los datos y las comunicaciones, sin sacrificar la eficiencia de los recursos. En este artículo se realiza una recopilación de todos los conceptos, avances y tendencias que se fueron dando a lo largo de los años en este campo de la criptografía.\par}
+		
+		{\small \justify\textbf{Keywords:} Criptografía ligera, Block ciphers, IoT, Seguridad. \par}
+	\end{titlepage}
+	
+	\section{Introducción}
+	La criptografía ligera (rama de la criptografía) es uno de los temas de la actualidad que se encuentra en auge. Es usada en dispositivos donde su poder de cómputo es reducido, a estos dispositivos actualmente se les conoce como IoT (Internet of Things o Internet de las Cosas), aunque en sus inicio recibía el nombre de red de sensores. Muchos de estos dispositivos utilizan microcontroladores de muy bajo consumo que solo pueden permitirse una pequeña parte de su cómputo a la seguridad\footnote{Es importante tener en cuenta que, aunque la criptografía ligera es útil para dispositivos con recursos limitados, los avances en la tecnología a menudo influyen en lo que se considera "ligero". Lo que se considera ligero en un momento dado podría no serlo en un futuro, a medida que la capacidad de los dispositivos mejore.}. Esto provoca que los algoritmos clásicos de criptografía (Como los basados en AES Advanced Encryption Standard) no puedan ser usados, debido a la alta latencia y consumo de energía que presentaron en estos dispositivos. La criptografía ligera nos brinda una gran variedad de algoritmos “livianos” que han sido diseñados para garantizar confidencialidad, autenticidad e integridad de los datos en los dispositivos IoT. Son algoritmos desarrollados por los ámbitos académicos, agencias estatales o propietarios. En sus inicios, el sector que más utilizaba esto era el industrial:
+	\begin{quote}
+		'Un ejemplo común de este uso es el de las redes de sensores. Estas redes tienen como objetivo conectar grandes cantidades de sensores muy simples a un centro principal. Estos sensores funcionan con baterías y/o generarían su propia energía utilizando, por ejemplo, paneles solares. Los algoritmos criptográficos deben usarse en los canales de comunicación entre los sensores y su centro para proporcionar seguridad, autenticidad e integridad de los mensajes. Sin embargo, debido a la muy baja energía disponible y porque la seguridad es un gasto adicional a la funcionalidad real del dispositivo, los algoritmos criptográficos deben ser lo más ‘pequeños’ posible.' \parencite[1]{biryukov2017state}
+	\end{quote}
+	\section{Desarrollo de Trabajo}
+	
+	\subsection{Estandarización de la Criptografía Ligera: ISO/IEC 18033 y 29192}
+	
+	\subsection{Clasificación y Consideraciones en el Diseño}
+	
+	\subsection{Algoritmos Criptográficos Ligeros: Tendencias y Desafíos}
+	
+	\section{Resultados Obtenidos y Esperados}
+	
+	\section{Conclusión}
+	
+	\section{Referencias}
+	\nocite{*}
+	\printbibliography[heading=none]
+\end{document}
