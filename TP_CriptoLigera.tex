@@ -81,15 +81,16 @@ pdfborderstyle={/S/U/W 1}]{hyperref}
 		\item La existencia de vectores de prueba\footnote{Los vectores de pruebas son un conjunto de datos de entrada predefinidos y conocidos, utilizados para probar y verificar el correcto funcionamiento de un algoritmo.} para corroborar el buen funcionamiento de estos.
 	\end{enumerate}
 	\subsection{Clasificación y Consideraciones en el Diseño}
+	\label{sec:clas_consDiseño}
 	\textcite{wehbe2022criptografia} realiza una clasificación de los distintos algoritmos de encriptación, dividiéndolos en 4 grandes grupos:
 	\begin{enumerate}
 		\item \textbf{Stream ciphers (cifrados de flujo): }Es un cifrado simétrico que opera con una transformación que varía con el tiempo en dígitos individuales de texto plano. Una secuencia de texto plano se cifra usando una secuencia pseudoaleatoria, generada a partir de una clave secreta y un parámetro público. Cada dígito cifrado se obtiene combinando el dígito correspondiente de texto plano con esta secuencia.
-		\item \textbf{Block ciphers (cifrados de bloque):} Es un cifrado simétrico que, para una clave específica k, define un algoritmo de cifrado que convierte un bloque de texto plano de n bits en un bloque de texto cifrado de n bits, y un algoritmo de descifrado correspondiente.
+		\item \textbf{Block ciphers (cifrados de bloque):} Es un cifrado simétrico que, para una clave específica $k$, define un algoritmo de cifrado que convierte un bloque de texto plano de $n$ bits en un bloque de texto cifrado de $n$ bits, y un algoritmo de descifrado correspondiente.
 		\item \textbf{Funciones de hashing criptográficas: }Toman cadenas de entrada de longitud arbitraria y las convierten en cadenas de salida de longitud fija y corta, que es única (en teoría) para cada entrada única.
 		\item \textbf{Algoritmos de criptografía asimétrica (Sistemas de clave pública, como RSA y curvas elípticas): }Utiliza claves diferentes para cifrar y descifrar. Una clave puede ser pública, mientras que su contraparte debe mantenerse en secreto.
 	\end{enumerate}
-	En la actualidad se proponen muchos algoritmos criptográficos donde sus diseños varían mucho, y cuya única similitud es la baja potencia requerida para su ejecución. La implementación o diseño de estos algoritmos están divididos en dos: hardware y software. Independientemente de eso, al momento de su diseño se debe hacer hincapié en el consumo de memoria, el tamaño de la implementación (código o circuitería requerida) y la velocidad del algoritmo. Lo que sí varía de un tipo de implementación a otra son los parámetros utilizados para indicar su eficiencia. Más allá de esos aspectos, no importa la implementación específica que se haga, ya que un algoritmo de criptografía ligera debe, idealmente, conseguir un equilibrio entre seguridad, rendimiento y costo.
-	A continuación, mencionaremos los aspectos principales en los que se deben enfocar cada uno de los diseñadores e implementadores de acuerdo con el tipo de implementación particular por la que se haya decantado.
+	En la actualidad se proponen muchos algoritmos criptográficos donde sus diseños varían mucho, y cuya única similitud es la baja potencia requerida para su ejecución. La implementación o diseño de estos algoritmos están divididos en dos: hardware y software. Independientemente de eso, al momento de su diseño se debe hacer hincapié en el consumo de memoria, el tamaño de la implementación (código o circuitería requerida) y la velocidad del algoritmo. Lo que sí varía de un tipo de implementación a otra son los parámetros utilizados para indicar su eficiencia. Más allá de esos aspectos, no importa la implementación específica que se haga, ya que un algoritmo de criptografía ligera debe, idealmente, conseguir un equilibrio entre seguridad, rendimiento y costo. A continuación, mencionaremos los aspectos principales en los que se deben enfocar cada uno de los diseñadores e implementadores de acuerdo con el tipo de implementación particular por la que se haya decantado
+	
 	Si se desea realizar una implementación por hardware, para que este sea eficiente se deben tener en consideración los siguientes puntos:
 	\begin{itemize}
 		\item Debe minimizar el consumo de memoria, en RAM o el área de puerta en dispositivos con recursos limitados.
@@ -108,8 +109,11 @@ pdfborderstyle={/S/U/W 1}]{hyperref}
 	\end{itemize}
 	\subsection{Algoritmos Criptográficos Ligeros: Tendencias y Desafíos}
 	\textcite{biryukov2017state} enumeran algunas de las tendencias que se están adoptando en el diseño de nuevos algoritmos criptográficos ligeros, donde se mencionan las operaciones no lineales, operaciones lineales y se discute sobre el esquema de llaves.
+	
 	Las operaciones no lineales son realmente necesarias en cualquier algoritmo de encriptación, ya que brindan una mayor protección contra ciertos ataques, concretamente los ataques de criptoanálisis\footnote{El criptoanálisis se centra en estudiar y analizar los sistemas criptográficos para poder vulnerar su seguridad, algunas de las técnicas usadas son el reconocimiento de patrones de redundancia de los textos, el averiguar características del algoritmo de cifrado, entre otras.}, los ataques de fuerza bruta\footnote{En los ataques de fuerza bruta se trata de descubrir la clave utilizada para cifrar la información, probando todas las combinaciones posibles, es un mecanismo útil cuando se sabe que las llaves de cifrado son cortas.} y los ataques de canal lateral\footnote{Un ataque de canal lateral se centra en el análisis de la información indirecta que se filtra durante el proceso de cifrado o descifrado, con el objetivo de descubrir información sensible o claves de seguridad. Esta información puede ser la variación en el consumo eléctrico, el tiempo de respuesta del dispositivo, entre otros.}. Dentro de los mecanismos utilizados en la criptografía ligera se encuentran las tablas de consultas (Look-up Table), las cuales son una estructura de datos que, suele ser implementada a través de cajas de sustitución\footnote{Las S-Boxes son funciones booleanas vectoriales no lineales, que toman un número determinado de bits de entrada y los transforman en otro número de bits de salida, que no necesariamente tiene que ser la misma cantidad de bits.} (S-Boxes), estas se utilizan para realizar operaciones no lineales de manera más eficiente, y debido que pueden ser implementadas utilizando S-Boxes, permiten que los algoritmos que utilizan estas tablas puedan ser eficientemente implementados tanto por hardware como por software. Se menciona también a los algoritmos basados en segmentos de bits, que utilizan S-Boxe de manera distinta, permitiéndole realizar operaciones bit a bit como AND y XOR, en palabras de w bits. Dado que esta tarea requiere un número limitado de operaciones lógicas, los algoritmos que utilizan esta técnica se destacan por su eficiencia en la implementación por software y hardware. Por último, se encuentran los algoritmos basados en ARX (adición, rotación y XOR), que, debido a su simplicidad, eficiencia y a la gran dispersión en los datos que se consigue con ellos, junto con el hecho de que la adición a nivel de software es extremadamente eficiente, hace que los algoritmos basados en ARX se encuentran entre los mejores en rendimiento para microcontroladores.
-	Las operaciones lineales, por otro lado, tienen un rol fundamental, ya que proveen de difusión a los datos. Entre los mecanismos mencionados por los autores se encuentran las matrices de dispersión máxima, las cuales proveen una dispersión adecuada de los datos, al mismo tiempo que minimiza el costo computacional, aumentando la protección contra criptoanálisis lineales y diferenciales. La permutación de bits es otro mecanismo que está siendo altamente utilizado en ciertas plataformas, debido a que, en términos generales, su implementación por hardware se puede realizar a bajo costo, con el inconveniente que por el momento son un poco costosas de realizarse a nivel software, es por esa razón que son mayormente empleados por dispositivos RFID y similares. Por último, nombran a los algoritmos que se basan en rotación y XOR (RX), estos brindan una difusión apropiada, siendo barato de implementar tanto por software como por hardware, acarreando casi todas las ventajas de los algoritmos ARX, pero con un menor costo.
+	
+	Las operaciones lineales, por otro lado, tienen un rol fundamental, ya que proveen de difusión a los datos. Entre los mecanismos mencionados por los autores se encuentran las matrices de máxima distancia separable (MDS Matrix), las cuales proveen una dispersión adecuada de los datos, al mismo tiempo que minimiza el costo computacional, aumentando la protección contra criptoanálisis lineales y diferenciales. La permutación de bits es otro mecanismo que está siendo altamente utilizado en ciertas plataformas, debido a que, en términos generales, su implementación por hardware se puede realizar a bajo costo, con el inconveniente que por el momento son un poco costosas de realizarse a nivel software, es por esa razón que son mayormente empleados por dispositivos RFID y similares. Por último, nombran a los algoritmos que se basan en rotación y XOR (RX), estos brindan una difusión apropiada, siendo barato de implementar tanto por software como por hardware, acarreando casi todas las ventajas de los algoritmos basados en ARX, pero con un menor costo.
+	
 	Los autores finalizan hablando de las claves de encriptación, y debido a su elevado consumo en términos de RAM, hace que los diseñadores opten por implementar estos algoritmos utilizando claves de corta extensión, dejándolos expuestos a ataques de llaves relacionadas\footnote{Los ataques de claves relacionadas son un tipo de ataque criptográfico en el cual se intenta comprometer la seguridad en el cifrado aprovechándose de la relación existente entre las diferentes claves utilizadas en el sistema. Estos ataques se basan en el hecho de que ciertos algoritmos criptográficos pueden exhibir vulnerabilidades cuando se utilizan claves relacionadas de alguna manera específica.}y ataques de fuerza bruta. Si bien en la actualidad existen una serie de algoritmos que se jactan de ser inmunes a este tipo de ataques, esto lo consiguen añadiendo más rondas al momento de encriptar los datos o a través de esquemas de llaves más complejos, en ambos casos este tipo de alternativas no es muy preferida a la hora de crear este tipo de algoritmos. Por esta razón nacen los distintos esquemas de llaves, cuya principal función es diversificar y distribuir la clave principal en subclaves que se utilizan en diferentes rondas o etapas del cifrado para mejorar la seguridad y la resistencia a diversos tipos de ataques. Aunque al momento de la implementación se puede emplear este mecanismo de diversas formas:
 	\begin{itemize}
 		\item Utilizar una variante más sencilla del esquema de llaves para solventar los problema de seguridad referidos a ataques relacionales.
@@ -118,17 +122,11 @@ pdfborderstyle={/S/U/W 1}]{hyperref}
 		\item Utilizar la función de rotación para actualizar el estado de la clave original.
 	\end{itemize}
 	La tabla \ref{algoritmosCriptografiaLigera} ofrece en forma de ejemplo, algunos de los algoritmos más populares que utilizan cada una de las técnicas antes mencionadas. Hay que tener en cuenta que algunos algoritmos pueden estar en más de una categoría debido a que existen diferentes implementaciones de este.
-		\begin{figure}[h]
-		\centering
-		\includegraphics[width=1.0\textwidth]{tablaAlgoritmosCriptografiaLigera.PNG}
-		\caption{Tabla 1: Algoritmos que usan mecanismos de diseño.}
-		\label{algoritmosCriptografiaLigera}
-	\end{figure}\newline
 	\begin{itemize}
 		\item Tabla de consultas (Look-up Table): TC
 		\item Segmentos de bits (Bit-slice): ASB
 		\item ARX (adición, rotación y XOR): ARX
-		\item Matrices de dispersión máxima (MDS Matrices): MDS
+		\item Matrices de máxima distancia separable (MDS Matrices): MDS
 		\item Permutación de bits (Bit Permutations): PB
 		\item Rotación y XOR (RX): RX
 		\item Utilizan una variante sencilla del esquema de llaves: AV
@@ -136,16 +134,17 @@ pdfborderstyle={/S/U/W 1}]{hyperref}
 		\item Generan subclaves a partir de una clave principal: ASP
 		\item Cambian el estado de las claves a partir de una función de rotación: AR	
 	\end{itemize}
-	\newpage
-	\section{Resultados Obtenidos y Esperados}
-	En la sección 2.2 se clasificó todas las formas existentes de encriptación. Si bien todos estos esquemas son utilizados para una amplia gama de propósitos, cuando hablamos de algoritmos ligeros, el esquema asimétrico y las funciones hash suelen ser descartadas, ya que las primeras, en términos generales, son muy costoso y las segundas son empleadas para otro tipo de propósitos como la validación de datos o la construcción de otros primitivos criptográficos. Es por eso por lo que a la hora de diseñar un algoritmo ligero se opta por los esquemas de encriptación simétrica, es decir, modelos basados en Block cipher o Stream cipher, la siguiente tabla \ref{Diferencias_Block_Stream_Cipher} muestra las principales diferencias entre estos dos modelos:
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=1.0\textwidth]{tablaBlockStreamCipher.PNG}
-		\caption{Tabla 2: Diferencias entre block y stream cipher.}
-		\label{Diferencias_Block_Stream_Cipher}
+		\includegraphics[width=1.0\textwidth]{tablaAlgoritmosCriptografiaLigera.PNG}
+		\caption{Tabla 1: Algoritmos que usan mecanismos de diseño}
+		\label{algoritmosCriptografiaLigera}
 	\end{figure}
-	En general se utilizan algoritmos basados en Block Cipher cuando el tamaño de los datos es fijo o es conocido de antemano, algunos de sus usos son, por ejemplo, en el protocolo SSL/TLS que utilizan cifrado de bloque para proteger la comunicación entre el cliente y el servidor. Por otro lado, se utiliza un cifrado de flujo cuando los datos a cifrar poseen un tamaño muy variable e imposible de predecir, protocolos Wi-Fi como el WEP o WPA e incluso las comunicaciones satelitales utilizan este tipo de algoritmos. Thakor et al. (2020), menciona otras de las áreas donde se emplean este tipo de algoritmos, entre ellas:
+
+	\section{Resultados Obtenidos y Esperados}
+	En la sección \ref{sec:clas_consDiseño} se clasificó todas las formas existentes de encriptación. Si bien todos estos esquemas son utilizados para una amplia gama de propósitos, cuando hablamos de algoritmos ligeros, el esquema asimétrico y las funciones hash suelen ser descartadas, ya que las primeras, en términos generales, son muy costoso y las segundas son empleadas para otro tipo de propósitos como la validación de datos o la construcción de primitivos criptográficos. Es por eso que a la hora de diseñar un algoritmo ligero se opta por los esquemas de encriptación simétrica, es decir, modelos basados en Block cipher o Stream cipher, la tabla \ref{Diferencias_Block_Stream_Cipher} muestra las principales diferencias entre estos dos modelos:
+	
+	En general se utilizan algoritmos basados en Block Cipher cuando el tamaño de los datos es fijo o es conocido de antemano, algunos de sus usos son, por ejemplo, en el protocolo SSL/TLS que utilizan cifrado de bloque para proteger la comunicación entre el cliente y el servidor. Por otro lado, se utiliza un cifrado de flujo cuando los datos a cifrar poseen un tamaño muy variable e imposible de predecir, protocolos Wi-Fi como el WEP o WPA e incluso las comunicaciones satelitales utilizan este tipo de algoritmos. \textcite{thakor2020lightweight}, menciona otras de las áreas donde se emplean este tipo de algoritmos, entre ellas:
 	\begin{itemize}
 		\item En dispositivos eléctricos que se utilizan en el hogar, como televisores inteligentes, refrigeradores y otros dispositivos similares, que implementan algoritmos como SIMON, SPECK, Piccolo y TWINE. 
 		\item En el ámbito de la logística y la gestión de la cadena de suministro mediante la tecnología RFID (Identificación por Radiofrecuencia), que utilizan algoritmos como SIMON, SPECK, Piccolo y PRINCE.
@@ -154,7 +153,12 @@ pdfborderstyle={/S/U/W 1}]{hyperref}
 		\item En los sistemas industriales en entornos de fabricación, producción y procesamiento, que hacen uso del algoritmo AES.
 		\item La incorporación de sistemas de seguridad y comunicación en la industria automotriz que utilizan los algoritmos Keeloq, Midori, PRINCE, PRESENT y SIMON\footnote{Para su mayor conocimiento, en el mismo artículo se enumera una serie de algoritmos ligeros junto con los tipos de ataques a los que han sido sometido cada algoritmo. Los tipos de ataques incluyen ataques de criptoanálisis, ataques de canales laterales, ataques de fuerza bruta, entre otros. Esta información resulta útil para comprender la seguridad de los algoritmos y evaluar su resistencia a diversos tipos de amenazas.}.
 	\end{itemize}
-	\newpage
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=1.0\textwidth]{tablaBlockStreamCipher.PNG}
+		\caption{Tabla 2: Diferencias entre Block y Stream cipher}
+		\label{Diferencias_Block_Stream_Cipher}
+	\end{figure}
 	\section{Conclusión}
 	
 	\section{Referencias}
