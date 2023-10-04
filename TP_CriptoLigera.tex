@@ -55,12 +55,13 @@ pdfborderstyle={/S/U/W 1}]{hyperref}
 	\begin{titlepage}
 		\centering
 		\vspace*{1.5cm}
-		{\fontsize{14}{17}\bfseries Criptografía ligera\par}
-		{\small Martin Borgo, Isaías Reniero, Leandro Molina\par}
+		{\fontsize{14}{17}\bfseries Criptografía ligera: conceptos, avances y tendencias en seguridad para IoT y dispositivos con recursos limitados\par}
+		{\small Borgo, Martín Alejandro; Molina, Leandro Rodrigo; Reniero, Oscar Isaías\par}
 		{\normalsize Universidad Nacional de Entre Ríos\par}
 		{\normalsize Facultad de Ciencias de la Administración\par}
 		{\normalsize Licenciatura en Sistemas\par}
-		{\small \href{mailto:martinborgo8@gmail.com}{martinborgo8@gmail.com}, \href{mailto:isa.reniero001@hotmail.com}{isa.reniero001@hotmail.com}, \href{mailto:LeandroRodrigoMolina@gmail.com}{LeandroRodrigoMolina@gmail.com}\par}
+		{\small \href{mailto:martinborgo8@gmail.com}{martinborgo8@gmail.com},
+		\href{mailto:LeandroRodrigoMolina@gmail.com}{LeandroRodrigoMolina@gmail.com}, \href{mailto:isa.reniero001@hotmail.com}{isa.reniero001@hotmail.com}\par}
 		{\small \justify\textbf{Abstract.} La criptografía ligera (Lightweight Cryptography), es una rama de la criptografía que se enfoca en desarrollar algoritmos eficientes y de bajo consumo para su implementación en sistemas con recursos limitados, como sistemas embebidos, dispositivos IoT (Internet de las cosas) y microcontroladores. La ausencia de medidas de seguridad adecuadas en tales sistemas genera preocupaciones, especialmente cuando se trata de gestionar información sensible, en este contexto la criptografía ligera ofrece soluciones que permiten proteger eficazmente los datos y las comunicaciones, sin sacrificar la eficiencia de los recursos. En este artículo se recopilan los distintos conceptos, avances y tendencias que se fueron dando a lo largo de los años en este campo de la criptografía.\par}
 		
 		{\small \justify\textbf{Keywords:} Criptografía Ligera, Block Ciphers, IoT, Seguridad. \par}
@@ -71,6 +72,7 @@ pdfborderstyle={/S/U/W 1}]{hyperref}
 	\begin{quote}
 		''Un ejemplo común de este uso es el de las redes de sensores. Estas redes tienen como objetivo conectar grandes cantidades de sensores muy simples a un centro principal. Estos sensores funcionan con baterías y/o generarían su propia energía utilizando, por ejemplo, paneles solares. Los algoritmos criptográficos deben usarse en los canales de comunicación entre los sensores y su centro para proporcionar seguridad, autenticidad e integridad de los mensajes. Sin embargo, debido a la muy baja energía disponible y porque la seguridad es un gasto adicional a la funcionalidad real del dispositivo, los algoritmos criptográficos deben ser lo más ‘pequeños’ posible.'' \parencite[1]{biryukov2017state}
 	\end{quote}
+	Con el transcurso del tiempo, la aplicación de estos algoritmos ha permeado diversas áreas, incluyendo el sector médico y el ámbito de los dispositivos electrónicos, tales como televisores y lavadoras, entre muchos otros \parencite{thakor2020lightweight, eterovic2019criptografia, gunathilake2019next}. En consecuencia, en los últimos años se ha experimentado un significativo progreso no sólo en la identificación de vulnerabilidades sino también en la corrección de éstas y en la invención de innovadores métodos de encriptación. Este artículo se enfocará en llevar a cabo un análisis preliminar exhaustivo sobre está subárea de la criptografía, abordando integralmente conceptos, progresos y tendencias actuales en el desarrollo de este tipo de algoritmos.
 	\section{Desarrollo de Trabajo}
 	\subsection{Estandarización de la Criptografía Ligera: ISO/IEC 18033 y 29192}
 	Debido a la gran relevancia que estaban adquiriendo este tipo de algoritmos de encriptación, en 2011 se estandarizan gran parte de estos a través de la creación de la ISO/IEC 18033, que en sus diferentes incisos quedan descritos y especificados cada uno de los métodos de encriptación que estaban siendo utilizados a nivel industrial, académico y gubernamental hasta día de hoy. Aunque el paso más grande se dio en 2012 con la salida de la ISO/IEC 29192-1:2012 donde se introduce por primera vez el término criptografía ligera, brindando definiciones y estableciendo una serie de requerimientos de seguridad, implementación y clasificación. De la mano de la estandarización vienen un conjunto de ventajas, de las cuales \textcite{eterovic15stream} mencionan las siguientes:
